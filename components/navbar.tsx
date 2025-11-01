@@ -1,6 +1,6 @@
 import { Logo } from "@/components/logo";
-import { SearchDialog } from "@/components/search-dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SearchDialog } from "@/components/search-dialog";
 
 export const Navbar = () => {
   return (

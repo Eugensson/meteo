@@ -1,31 +1,30 @@
 "use client";
 
-// import { useState } from "react";
+import { useState } from "react";
 import { CommandIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Command, CommandInput } from "@/components/ui/command";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-// import {
-//   useGlobalContext,
-//   useGlobalContextUpdate,
-// } from "@/app/context/globalContext";
+import {
+  useGlobalContext,
+  useGlobalContextUpdate,
+} from "@/context/global-context";
+import { Button } from "@/components/ui/button";
+import { Command, CommandInput } from "@/components/ui/command";
 
 export const SearchDialog = () => {
-  // const { geoCodedList, inputValue, handleInput } = useGlobalContext();
-  // const { setActiveCityCoords } = useGlobalContextUpdate();
+  const { geoCodedList, inputValue, handleInput } = useGlobalContext();
+  const { setActiveCityCoords } = useGlobalContextUpdate();
 
-  // const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
 
-  // const getClickedCoords = (lat: number, lon: number) => {
-  //   setActiveCityCoords([lat, lon]);
-  // };
+  const getClickedCoords = (lat: number, lon: number) => {
+    setActiveCityCoords([lat, lon]);
+  };
 
   return (
     <Dialog>
@@ -44,14 +43,14 @@ export const SearchDialog = () => {
         <DialogTitle className="sr-only" />
         <Command className="rounded-lg border shadow-md">
           <CommandInput
-            // value={inputValue}
-            // onChangeCapture={handleInput}
+            value={inputValue}
+            onChangeCapture={handleInput}
             placeholder="Type a command or search..."
           />
           <div className="px-3 pb-2">
             <p className="p-2 text-sm text-muted-foreground">Suggestions</p>
-            {/* {geoCodedList?.length === 0 || (!geoCodedList && <p>No Results</p>)} */}
-            {/* <ul>
+            {geoCodedList?.length === 0 || (!geoCodedList && <p>No Results</p>)}
+            <ul>
               {geoCodedList &&
                 geoCodedList.map(
                   (
@@ -83,7 +82,7 @@ export const SearchDialog = () => {
                     );
                   }
                 )}
-            </ul> */}
+            </ul>
           </div>
         </Command>
       </DialogContent>

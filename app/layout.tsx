@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { GlobalContextProvider } from "@/context/global-context";
 
 import "./globals.css";
 
@@ -36,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <GlobalContextProvider>{children}</GlobalContextProvider>
         </ThemeProvider>
       </body>
     </html>

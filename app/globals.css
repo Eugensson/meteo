@@ -120,3 +120,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+.temperature {
+  background-image: linear-gradient(
+    to right,
+    #0077ff 0%,
+    #00e0ff 25%,
+    #aaff00 50%,
+    #ffcc00 75%,
+    #ff3300 100%
+  );
+}

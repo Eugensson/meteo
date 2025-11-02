@@ -2,6 +2,13 @@
 
 import { Droplets } from "lucide-react";
 
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/context/global-context";
 
@@ -17,15 +24,20 @@ export const Humidity = () => {
   const { humidity } = forecast?.main;
 
   return (
-    <div className="pt-6 pb-5 px-4 h-48 border rounded-lg flex flex-col gap-8 dark:bg-dark-grey shadow-sm dark:shadow-none">
-      <div className="top">
-        <h2 className="flex items-center gap-2 font-medium">
-          <Droplets size={15} /> Humidity
-        </h2>
-        <p className="pt-4 text-2xl">{humidity}%</p>
-      </div>
-
-      <p className="text-sm">{getHumidityText(humidity)}.</p>
-    </div>
+    <Card className="h-48 justify-between">
+      <CardHeader>
+        <CardTitle>
+          <h2 className="flex items-center gap-2 font-medium">
+            <Droplets size={15} /> Humidity
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-2xl">{humidity}%</p>
+      </CardContent>
+      <CardFooter className="text-sm px-3 justify-center">
+        {getHumidityText(humidity)}.
+      </CardFooter>
+    </Card>
   );
 };

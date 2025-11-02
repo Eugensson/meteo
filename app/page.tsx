@@ -11,6 +11,7 @@ import { FeelsLike } from "@/components/feels-like";
 import { Population } from "@/components/population";
 import { Visibility } from "@/components/visibility";
 import { Temperature } from "@/components/temperature";
+import { Card, CardContent } from "@/components/ui/card";
 import { AirPollution } from "@/components/air-pollution";
 import { DailyForecast } from "@/components/daily-forecast";
 import { FiveDayForecast } from "@/components/five-day-forecast";
@@ -33,15 +34,15 @@ const Home = () => {
   };
 
   return (
-    <main className="mx-4 lg:mx-8 xl:mx-24 2xl:mx-64 m-auto">
+    <main className="mx-4 lg:mx-8 xl:mx-24 2xl:mx-48 m-auto">
       <Navbar />
-      <div className="pb-4 flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="w-full min-w-72 md:w-140 flex flex-col gap-4">
           <Temperature />
           <FiveDayForecast />
         </div>
-        <div className="flex flex-col w-full">
-          <div className="instruments grid h-full gap-4 col-span-full sm-2:col-span-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="w-full flex flex-col gap-10">
+          <div className="instruments h-fit grid col-span-full sm:col-span-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <AirPollution />
             <Sunset />
             <Wind />
@@ -53,23 +54,26 @@ const Home = () => {
             <Visibility />
             <Pressure />
           </div>
-          <div className="mapbox-con mt-4 flex gap-4">
+          <div className="mapbox-con flex gap-4">
             <Mapbox />
             <div className="states flex flex-col gap-3 flex-1">
               <h2 className="flex items-center gap-2 font-medium">
                 Top Large Cities
               </h2>
-              <ul className="flex flex-col gap-4">
+              <ul className="mt-4 flex flex-col gap-4">
                 {citiesData.map(({ name, lat, lon }, index) => {
                   return (
-                    <li
-                      key={index}
-                      className="border rounded-lg cursor-pointer dark:bg-dark-grey shadow-sm dark:shadow-none"
-                      onClick={() => {
-                        getClickedCityCords(lat, lon);
-                      }}
-                    >
-                      <p className="px-6 py-4">{name}</p>
+                    <li key={index}>
+                      <Card
+                        className="py-4 cursor-pointer"
+                        onClick={() => {
+                          getClickedCityCords(lat, lon);
+                        }}
+                      >
+                        <CardContent>
+                          <p className="text-center">{name}</p>
+                        </CardContent>
+                      </Card>
                     </li>
                   );
                 })}

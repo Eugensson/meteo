@@ -2,6 +2,13 @@
 
 import { SunsetIcon } from "lucide-react";
 
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/context/global-context";
 
@@ -21,16 +28,21 @@ export const Sunset = () => {
   const sunrise = unixToTime(forecast?.sys?.sunrise, timezone);
 
   return (
-    <div className="pt-6 pb-5 px-4 h-48 border rounded-lg flex flex-col gap-8 dark:bg-dark-grey shadow-sm dark:shadow-none">
-      <div className="top">
-        <h2 className="flex items-center gap-2 font-medium">
-          <SunsetIcon size={15} />
-          Sunset
-        </h2>
-        <p className="pt-4 text-2xl">{sunsetTime}</p>
-      </div>
-
-      <p className="text-sm">Sunrise: {sunrise}</p>
-    </div>
+    <Card className="h-48 justify-between">
+      <CardHeader>
+        <CardTitle>
+          <h2 className="flex items-center gap-2 font-medium">
+            <SunsetIcon size={15} />
+            Sunset
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-3xl">{sunsetTime}</p>
+      </CardContent>
+      <CardFooter>
+        Sunrise:&nbsp;<span className="font-medium">{sunrise}</span>
+      </CardFooter>
+    </Card>
   );
 };

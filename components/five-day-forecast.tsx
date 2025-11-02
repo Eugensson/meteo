@@ -4,6 +4,7 @@ import { CalendarDays } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/context/global-context";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { DailyForecast } from "@/types";
 import { kelvinToCelsius, unixToDay } from "@/lib/misc";
@@ -46,34 +47,36 @@ export const FiveDayForecast = () => {
   }
 
   return (
-    <div
-      className="pt-6 pb-5 px-4 flex-1 border rounded-lg flex flex-col
-        justify-between dark:bg-dark-grey shadow-sm dark:shadow-none"
-    >
-      <h2 className="flex items-center gap-2 font-medium">
-        <CalendarDays size={15} /> 5-Day Forecast for {city.name}
-      </h2>
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <h2 className="flex items-center gap-2 font-medium">
+            <CalendarDays size={15} /> 5-Day Forecast for {city.name}
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="forecast-list">
+          {dailyForecasts.map((day, i) => (
+            <li
+              key={i}
+              className="daily-forevast py-4 flex flex-col justify-evenly border-b-2 last-of-type:border-none"
+            >
+              <p className="text-xl min-w-14">{day.day}</p>
+              <p className="text-sm flex justify-between">
+                <span>(low)</span>
+                <span>(high)</span>
+              </p>
 
-      <ul className="forecast-list pt-3 backdrop-blur-2xl">
-        {dailyForecasts.map((day, i) => (
-          <li
-            key={i}
-            className="daily-forevast py-4 flex flex-col justify-evenly border-b-2 last-of-type:border-none"
-          >
-            <p className="text-xl min-w-14">{day.day}</p>
-            <p className="text-sm flex justify-between">
-              <span>(low)</span>
-              <span>(high)</span>
-            </p>
-
-            <div className="flex-1 flex items-center justify-between gap-4">
-              <p className="font-bold">{day.minTemp}°C</p>
-              <div className="temperature flex-1 w-full h-2 rounded-lg" />
-              <p className="font-bold">{day.maxTemp}°C</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <div className="flex-1 flex items-center justify-between gap-4">
+                <p className="font-bold">{day.minTemp}°C</p>
+                <div className="temperature flex-1 w-full h-2 rounded-lg" />
+                <p className="font-bold">{day.maxTemp}°C</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 };

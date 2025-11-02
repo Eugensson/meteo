@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  CloudDrizzle,
-  CloudRain,
-  CloudSun,
-  Cloudy,
-  Snowflake,
-} from "lucide-react";
 import moment from "moment";
 
 import {
@@ -15,9 +8,11 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
 import { useGlobalContext } from "@/context/global-context";
 
 import { kelvinToCelsius } from "@/lib/misc";
+import { getWeatherIcon } from "@/lib/getWeatherIcon";
 
 export const DailyForecast = () => {
   const { forecast, fiveDayForecast } = useGlobalContext();
@@ -44,8 +39,6 @@ export const DailyForecast = () => {
       forecast.dt_txt.startsWith(todayString)
   );
 
-  console.log("todaysForecast", todaysForecast);
-
   const { main: weatherMain } = weather[0];
 
   if (todaysForecast.length < 1) {
@@ -54,62 +47,40 @@ export const DailyForecast = () => {
     );
   }
 
-  const getIcon = () => {
-    switch (weatherMain) {
-      case "Drizzle":
-        return <CloudDrizzle size={25} />;
-      case "Rain":
-        return <CloudRain size={30} />;
-      case "Snow":
-        return <Snowflake size={30} />;
-      case "Clear":
-        return <CloudSun size={30} />;
-      case "Clouds":
-        return <Cloudy size={30} />;
-      default:
-        return <CloudSun size={30} />;
-    }
-  };
-
   return (
-    <div
-      className="pt-6 px-4 h-48 border rounded-lg flex flex-col gap-8
-       dark:bg-dark-grey shadow-sm dark:shadow-none col-span-full sm-2:col-span-2 md:col-span-2 xl:col-span-2"
-    >
-      <div className="h-full flex gap-10 overflow-hidden">
+    <Card className="h-48 col-span-full sm:col-span-2">
+      <CardContent className="h-full flex gap-10 overflow-hidden">
         {todaysForecast.length < 1 ? (
           <div className="flex justify-center items-center">
-            <h1 className="text-[3rem] line-through text-rose-500">
-              No Data Available!
+            <h1 className="text-5xl line-through text-rose-500">
+              No Data Available
             </h1>
           </div>
         ) : (
-          <div className="w-full">
-            <Carousel>
-              <CarouselContent>
-                {todaysForecast.map(
-                  (forecast: { dt_txt: string; main: { temp: number } }) => {
-                    return (
-                      <CarouselItem
-                        key={forecast.dt_txt}
-                        className="flex flex-col gap-4 basis-34 cursor-grab"
-                      >
-                        <p className=" text-gray-300">
-                          {moment(forecast.dt_txt).format("HH:mm")}
-                        </p>
-                        <p>{getIcon()}</p>
-                        <p className="mt-4">
-                          {kelvinToCelsius(forecast.main.temp)}°C
-                        </p>
-                      </CarouselItem>
-                    );
-                  }
-                )}
-              </CarouselContent>
-            </Carousel>
-          </div>
+          <Carousel>
+            <CarouselContent>
+              {todaysForecast.map(
+                (forecast: { dt_txt: string; main: { temp: number } }) => {
+                  return (
+                    <CarouselItem
+                      key={forecast.dt_txt}
+                      className="flex flex-col gap-4 basis-34 cursor-grab"
+                    >
+                      <p className="text-muted-foreground font-medium">
+                        {moment(forecast.dt_txt).format("HH:mm")}
+                      </p>
+                      <p>{getWeatherIcon(weatherMain)}</p>
+                      <p className="mt-4">
+                        {kelvinToCelsius(forecast.main.temp)}°C
+                      </p>
+                    </CarouselItem>
+                  );
+                }
+              )}
+            </CarouselContent>
+          </Carousel>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };

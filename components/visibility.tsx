@@ -2,6 +2,13 @@
 
 import { Eye } from "lucide-react";
 
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/context/global-context";
 
@@ -17,15 +24,20 @@ export const Visibility = () => {
   const { visibility } = forecast;
 
   return (
-    <div className="pt-6 pb-5 px-4 h-48 border rounded-lg flex flex-col gap-8 dark:bg-dark-grey shadow-sm dark:shadow-none">
-      <div className="top">
-        <h2 className="flex items-center gap-2 font-medium">
-          <Eye size={15} /> Visibility
-        </h2>
-        <p className="pt-4 text-2xl">{Math.round(visibility / 1000)} km</p>
-      </div>
-
-      <p className="text-sm">{getVisibilityDescription(visibility)}.</p>
-    </div>
+    <Card className="h-48 justify-between">
+      <CardHeader>
+        <CardTitle>
+          <h2 className="flex items-center gap-2 font-medium">
+            <Eye size={15} /> Visibility
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-2xl">{Math.round(visibility / 1000)} km</p>
+      </CardContent>
+      <CardFooter className="text-sm px-3 justify-center">
+        {getVisibilityDescription(visibility)}.
+      </CardFooter>
+    </Card>
   );
 };

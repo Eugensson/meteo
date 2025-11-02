@@ -2,6 +2,13 @@
 
 import { UsersRound } from "lucide-react";
 
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/context/global-context";
 
@@ -14,17 +21,23 @@ export const Population = () => {
     return <Skeleton className="h-48 w-full" />;
   }
 
-  const { city } = fiveDayForecast;
+  const { population, name } = fiveDayForecast.city;
 
   return (
-    <div className="pt-6 pb-5 px-4 h-48 border rounded-lg flex flex-col gap-8 dark:bg-dark-grey shadow-sm dark:shadow-none">
-      <div className="top">
-        <h2 className="flex items-center gap-2 font-medium">
-          <UsersRound size={15} /> Population
-        </h2>
-        <p className="pt-4 text-2xl">{formatNumber(city.population)}</p>
-      </div>
-      <p className="text-sm">Latest UN population data for {city.name}.</p>
-    </div>
+    <Card className="h-48 justify-between">
+      <CardHeader>
+        <CardTitle>
+          <h2 className="flex items-center gap-2 font-medium">
+            <UsersRound size={15} /> Population
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-2xl">{formatNumber(population)}</p>
+      </CardContent>
+      <CardFooter className="text-sm px-3 justify-center">
+        Latest UN population data for {name}.
+      </CardFooter>
+    </Card>
   );
 };

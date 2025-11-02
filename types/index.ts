@@ -117,3 +117,46 @@ export type DailyForecast = {
   minTemp: number;
   maxTemp: number;
 };
+
+export type AirQualityData = {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  list: {
+    main: {
+      aqi: number;
+    };
+    components: {
+      co: number;
+      no: number;
+      no2: number;
+      o3: number;
+      so2: number;
+      pm2_5: number;
+      pm10: number;
+      nh3: number;
+    };
+    dt: number;
+  }[];
+};
+
+export type UvIndexData = {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+  daily_units: {
+    time: string;
+    uv_index_max: string;
+    uv_index_clear_sky_max: string;
+  };
+  daily: {
+    time: string[];
+    uv_index_max: number[];
+    uv_index_clear_sky_max: number[];
+  };
+};

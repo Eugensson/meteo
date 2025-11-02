@@ -12,15 +12,20 @@ import {
 import axios from "axios";
 import { debounce } from "lodash";
 
-import { FiveDayForecast, Forecast } from "@/types";
+import {
+  AirQualityData,
+  FiveDayForecast,
+  Forecast,
+  UvIndexData,
+} from "@/types";
 import { logError } from "@/lib/utils";
 import { citiesData } from "@/lib/data";
 
 interface GlobalContextType {
   forecast: Forecast | null;
-  airQuality: object;
+  airQuality: AirQualityData | null;
   fiveDayForecast: FiveDayForecast | null;
-  uvIndex: object;
+  uvIndex: UvIndexData | null;
   geoCodedList: typeof citiesData;
   inputValue: string;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,9 +46,9 @@ interface GlobalContextProviderProps {
 export const GlobalContextProvider = ({
   children,
 }: GlobalContextProviderProps) => {
-  const [uvIndex, setUvIndex] = useState({});
+  const [uvIndex, setUvIndex] = useState<UvIndexData | null>(null);
   const [inputValue, setInputValue] = useState("");
-  const [airQuality, setAirQuality] = useState({});
+  const [airQuality, setAirQuality] = useState<AirQualityData | null>(null);
   const [fiveDayForecast, setFiveDayForecast] =
     useState<FiveDayForecast | null>(null);
   const [geoCodedList, setGeoCodedList] = useState(citiesData);
@@ -107,9 +112,9 @@ export const GlobalContextProvider = ({
   return (
     <GlobalContext.Provider
       value={{
-        forecast: forecast ?? ({} as Forecast),
+        forecast,
         airQuality,
-        fiveDayForecast: fiveDayForecast ?? ({} as FiveDayForecast),
+        fiveDayForecast,
         uvIndex,
         geoCodedList,
         inputValue,

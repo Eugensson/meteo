@@ -42,7 +42,7 @@ const Home = () => {
           <FiveDayForecast />
         </div>
         <div className="w-full flex flex-col gap-10">
-          <div className="instruments h-fit grid col-span-full sm:col-span-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="h-fit grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 col-span-full sm:col-span-2 gap-4">
             <AirPollution />
             <Sunset />
             <Wind />
@@ -56,7 +56,7 @@ const Home = () => {
           </div>
           <div className="mapbox-con flex gap-4">
             <Mapbox />
-            <div className="states flex flex-col gap-3 flex-1">
+            <div className="flex flex-col gap-3 flex-1">
               <h2 className="flex items-center gap-2 font-medium">
                 Top Large Cities
               </h2>
